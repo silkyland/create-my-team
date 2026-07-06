@@ -53,7 +53,7 @@ produce reliable work.
 | Skill | Moment |
 |-------|--------|
 | [know-my-repo](https://github.com/silkyland/know-my-repo) | Day one: onboard onto a repo with zero knowledge |
-| [deep-plan](https://github.com/silkyland/deep-plan) | Plan the next feature/refactor — evidence-gated |
+| [deep-plan](https://github.com/silkyland/deep-plan) | Plan the next feature/refactor — evidence-gated, 7 phases |
 | [deep-plan-ingest](https://github.com/silkyland/deep-plan) | Distill an accepted plan into living knowledge files |
 | [clean-slate](https://github.com/silkyland/clean-slate) | Reset rotten knowledge files — backup-gated |
 | [transform-my-repo](https://github.com/silkyland/transform-my-repo) | Change the architecture: migration feasibility + strategy |
@@ -62,6 +62,7 @@ produce reliable work.
 | [love-me-love-my-docs](https://github.com/silkyland/love-me-love-my-docs) | A user manual that regenerates itself |
 | [seed-ah](https://github.com/silkyland/seed-ah) | Fake-but-production-like demo data with a manifest |
 | **create-my-team** | Spawn and manage a subagent team for any mission |
+| [reproduce-my-bug](https://github.com/silkyland/reproduce-my-bug) | Prove the bug before anyone fixes it |
 
 Shared law: **no claim without evidence** — here: a subagent's output is a
 claim, and the integration gate is where claims become results.
