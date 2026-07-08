@@ -118,7 +118,7 @@ before the dependent worker spawns. No worker builds on an unknown; a
 spike that can't close turns its unknown into a plan-gate line item, not
 a silent assumption.
 
-For missions that are pure research, Steps 4→7 complete the job (skip 5–6).
+For missions that are pure research, Step 4 completes the job (skip 5–6).
 
 ## Step 5 — Plan gate ⛔
 
@@ -174,3 +174,14 @@ orchestrates; deep-plan specifies.
 - Failures and rejections stated plainly, with what was done about them.
 - Cost summary: members spawned, wall time, anything the user should know
   before asking for a bigger team next time.
+
+## When things go wrong
+
+| Situation | Response |
+|-----------|----------|
+| **No spawning capability detected** | Declare degraded mode; run phases sequentially yourself with same briefs, gates, and attribution (`scout-1 (self)`) |
+| **Member times out** | Kill, log in attribution table, reassign scope to new member or lead, or report as honest hole — never absorb silently |
+| **Member returns off-contract work** | FIX-AND-RETRY once with named gap; second failure = REJECT, scope reassigned or reported |
+| **Integration gate finds fabricated citation** | Full re-verification of that member's entire deliverable; if pattern continues, reject and reassign |
+| **User cannot respond at plan gate (headless)** | Proceed only with read-only/reversible work; all ONE-WAY steps stay unexecuted and reported as pending |
+| **Sibling members produce conflicting claims** | Resolve with code evidence (like jury-my-repo) before merge — no majority vote, code decides |
