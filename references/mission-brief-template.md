@@ -23,6 +23,14 @@ act alone; short enough to leave room for the actual work.>
 - OUT: <adjacent things it must NOT touch — the sibling members' scopes,
   files that must not change, decisions above its pay grade>
 
+## Questions to answer  <!-- research/scout briefs -->
+<The Mission Questions this member owns, copied in full WITH their
+numbers. Answer every one with evidence or tag it UNVERIFIED with what
+would verify it — the integration gate checks coverage question by
+question, and a silently skipped question fails the gate.>
+- Q3: <...>
+- Q7: <...>
+
 ## Evidence rules
 - Every claim about the codebase: `file:line`.
 - Every claim about a framework/library/API: vendor path or docs URL +
@@ -40,6 +48,9 @@ act alone; short enough to leave room for the actual work.>
 
 ## Boundaries
 - Read-only / may modify only <paths> (in your own worktree).
+- ONE-WAY actions are above your pay grade: never push, delete outside
+  your worktree, call external services with side effects, or publish.
+  Deliver the artifact; the lead executes ONE-WAY steps after the gate.
 - Do not install packages / call external services / spend beyond scope
   without flagging it back first.
 - Timebox: <N> minutes of focused work — if you can't finish, return
@@ -50,7 +61,8 @@ act alone; short enough to leave room for the actual work.>
 
 - **Scopes across briefs must tile, not overlap** — read all briefs
   together before spawning; every mission-critical area appears in
-  exactly one IN list.
+  exactly one IN list. The same law binds the Mission Questions: every
+  question number appears in exactly one brief, none left unassigned.
 - Put decisions IN the brief, not questions — members that come back
   asking what you already knew wasted their run.
 - The output contract is the merge plan: if you can't say how you'll

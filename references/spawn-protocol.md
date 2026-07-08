@@ -54,6 +54,11 @@ Honesty over theater:
 - **Isolation for writers:** members that modify files get separate git
   worktrees (or the platform's isolation option). Read-only members run
   bare. Two writers in one directory is a merge conflict you scheduled.
+- **ONE-WAY actions stay with the lead:** members never push, delete
+  outside their worktree, call external services with side effects, or
+  publish — their briefs say so (Boundaries section). Everything a member
+  does must be revertible at the integration gate; anything that isn't
+  is executed by the lead, post-gate, user-confirmed.
 - **Results are artifacts:** prefer members returning to files
   (`.team/<member>/report.md`) or structured final messages per their
   contract — parseable, diffable, attributable.

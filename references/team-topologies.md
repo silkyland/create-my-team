@@ -33,6 +33,10 @@ scout(s) → planner → builder(s) → verifier → lead merges
   both in the briefs, or the handoff turns to prose.
 - A stage that misses its contract blocks the line: fix at that stage,
   never patch downstream.
+- For build pipelines, push a **walking skeleton** through all stages
+  first — the thinnest slice that traverses the whole line, merged and
+  run before the stages fill out. It proves every handoff contract at
+  slice-one cost.
 
 ## 3. Panel + judge (independent attempts, adjudicated)
 
@@ -67,6 +71,10 @@ lead builds the work-list (evidence first!) ──┬── worker: item 1..k
   to document, endpoints to test.
 - The work-list comes from a census (scout it first if unknown) — a
   guessed work-list means missed items reported as "done".
+- **First batch is a skeleton batch of one item** — one worker, one item,
+  through the integration gate and merged before the rest fan out. A
+  wrong contract found after one item costs one item; found after N
+  parallel batches it costs them all.
 - Writers get isolation (worktree/scope split). Batch size: enough that a
   worker's overhead amortizes; small enough that a bad worker loses one
   batch, not the mission.

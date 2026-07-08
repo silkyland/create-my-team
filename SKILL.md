@@ -40,12 +40,12 @@ Copy this into your response and check items off:
 
 ```
 Team Progress:
-- [ ] Step 1: Frame the mission — objective, deliverable, done-when, constraints
-- [ ] Step 2: Capability probe — what spawning tools ACTUALLY exist here
-- [ ] Step 3: Team design — topology, size, one mission brief per member
-- [ ] Step 4: Research phase — scouts out, evidence in, synthesis written
-- [ ] Step 5: Plan gate ⛔ — user approved the plan before execution spawns
-- [ ] Step 6: Execute — workers run, integration gate checks every deliverable
+- [ ] Step 1: Frame the mission — objective, deliverable, done-when, numbered Mission Questions
+- [ ] Step 2: Capability probe — capability record written (mechanism, limits, fallback)
+- [ ] Step 3: Team design — topology, size, one mission brief per member, every question assigned
+- [ ] Step 4: Research phase — every question answered or UNVERIFIED; unknowns become named spikes
+- [ ] Step 5: Plan gate ⛔ — Team Plan Brief (roster, order, cost, pre-mortem) approved before execution spawns
+- [ ] Step 6: Execute — skeleton merge first on build missions; integration gate checks every deliverable
 - [ ] Step 7: Report — results with per-member attribution, honest failures
 ```
 
@@ -56,6 +56,14 @@ constraints (deadline pressure, budget/token sensitivity, files that must
 not change), and the mission class — research / build / audit / migrate /
 mixed — which drives the topology choice in Step 3.
 
+Then write the **Mission Questions**: a numbered list of what the team
+must find out before anything is built — unknowns in the codebase, ground
+truth to verify, constraints to confirm. Step 3 assigns every question to
+exactly one scout's brief; Step 4 ends when every question is answered
+with evidence or tagged UNVERIFIED — **not** when the scouts happen to
+return. Questions discovered mid-research are appended and assigned, never
+absorbed silently.
+
 ## Step 2 — Capability probe
 
 **Never assume the platform.** This skill runs on Claude Code, Codex,
@@ -65,8 +73,9 @@ Probe per [references/spawn-protocol.md](references/spawn-protocol.md):
 - Inventory the ACTUAL tools available in this session (agent/task
   spawning, parallel workflows, background execution) — from the live tool
   list, not from memory of what the platform "usually" has.
-- Record: mechanism, parallelism limit, result-return path, timeout
-  behavior, isolation options.
+- Write the **capability record** before Step 3 starts — five fields:
+  mechanism, parallelism limit, result-return path, timeout behavior,
+  isolation options. `unknown` is a legal value; a blank is not.
 - **No spawning capability = degraded mode**, declared honestly: the same
   phases run sequentially by you, with the same briefs, gates, and
   attribution ("scout-1 (self)"). The structure survives; the parallelism
@@ -90,7 +99,9 @@ Size to the task, not to the ceiling — every member costs tokens; a
 [references/mission-brief-template.md](references/mission-brief-template.md):
 scoped objective, inputs, output contract, evidence rules, what NOT to do.
 Briefs are what make results mergeable — a member without a contract
-returns prose you can't integrate.
+returns prose you can't integrate. Scout briefs carry their assigned
+Mission Questions **by number** — read all briefs together before
+spawning: every question appears in exactly one brief, like scopes.
 
 ## Step 4 — Research phase (always first)
 
@@ -100,24 +111,52 @@ scout returns claims with citations per its brief. You (the lead)
 synthesize — and spot-check surprising claims yourself before they enter
 the plan; a scout's confidence is not evidence.
 
+Research ends when every Mission Question is answered or tagged
+UNVERIFIED. Every UNVERIFIED that execution will depend on becomes a
+**named spike task** — a small, timeboxed scout mission that must close
+before the dependent worker spawns. No worker builds on an unknown; a
+spike that can't close turns its unknown into a plan-gate line item, not
+a silent assumption.
+
 For missions that are pure research, Steps 4→7 complete the job (skip 5–6).
 
 ## Step 5 — Plan gate ⛔
 
-Present the synthesized plan to the user BEFORE spawning executors: what
-will be built/changed, by which team members, in what order, what it will
-roughly cost (members × scope), and what stays untouched. One question,
-recommended answer attached. **No execution spawns before the gate
-clears.** For deep implementation missions, offer running **deep-plan**
-here instead — this skill orchestrates; deep-plan specifies.
+Present the **Team Plan Brief** to the user BEFORE spawning executors —
+10–20 lines, all five parts present or the gate isn't ready:
+
+1. **Roster table** — member / role / scope, one line each.
+2. **Order** — parallel vs sequential, and which spikes must close first.
+3. **Cost** — rough (members × scope) plus timeboxes.
+4. **Untouched** — what the mission will NOT change.
+5. **Pre-mortem** — "the merged deliverable failed: top 3 causes"
+   (integration conflicts, duplicated scopes, a member hallucinating are
+   the classics), each mapped to the gate check or brief clause that
+   catches it. A cause with no catcher means the team design isn't done.
+
+One question, recommended answer attached. **No execution spawns before
+the gate clears.** If the user cannot respond (headless/CI run), proceed
+only with read-only and reversible work; every ONE-WAY step (Step 6)
+stays unexecuted and is reported as pending. For deep implementation
+missions, offer running **deep-plan** here instead — this skill
+orchestrates; deep-plan specifies.
 
 ## Step 6 — Execute and integrate
 
 - Spawn workers per the topology; parallel where scopes are independent,
   sequential where they feed each other.
+- **Skeleton merge first (build missions):** the first integration is the
+  thinnest end-to-end slice across members — one item per worker, merged
+  and run through the gate early — never a big-bang merge of everything
+  at the end. A contract mismatch found on slice one costs one fix; found
+  at final merge it costs the mission.
 - **Isolation for writers:** members that modify files get separate
   worktrees/scopes so they can't trample each other; read-only members
   don't need it.
+- **ONE-WAY actions never delegate:** pushes, deletions outside a
+  member's worktree, external calls with side effects, publishes.
+  Members deliver gate-passable artifacts; the lead performs any ONE-WAY
+  step itself, after the gate passes and with the user's confirmation.
 - Timebox every member; a hung member is killed, logged, and its scope
   reassigned or reported — never silently absorbed.
 - **Integration gate** per deliverable, protocol in

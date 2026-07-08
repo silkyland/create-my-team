@@ -18,7 +18,10 @@ produce reliable work.
 ```
 
 1. **Frame the mission** — objective, deliverable, done-when, mission
-   class (research / build / audit / migrate).
+   class (research / build / audit / migrate), and a numbered list of
+   **Mission Questions** the team must answer before anything is built —
+   each question assigned to exactly one scout's brief, coverage checked
+   number by number at the integration gate.
 2. **Capability probe** — what subagent machinery does THIS session
    actually expose (Claude Code agents/workflows, Codex multi-agent tools,
    OpenCode subagents, headless CLI fallback)? Verified live, never
@@ -34,16 +37,25 @@ produce reliable work.
    valid outcome.
 4. **Research phase — always first** — scouts return claims with
    citations; the lead spot-checks surprising ones before they enter the
-   plan. A scout's confidence is not evidence.
-5. **Plan gate** ⛔ — the synthesized plan (who builds what, rough cost)
-   goes to the user before any executor spawns. Deep implementation
-   missions can hand off to [deep-plan](https://github.com/silkyland/deep-plan)
-   here.
+   plan. A scout's confidence is not evidence. Research ends when every
+   Mission Question is answered or tagged UNVERIFIED — and every
+   UNVERIFIED that execution depends on becomes a **named spike task**
+   that closes before the dependent worker spawns.
+5. **Plan gate** ⛔ — the **Team Plan Brief** (roster table, order, rough
+   cost, what stays untouched, and a pre-mortem mapping each top failure
+   cause to the gate check that catches it) goes to the user before any
+   executor spawns. Deep implementation missions can hand off to
+   [deep-plan](https://github.com/silkyland/deep-plan) here.
 6. **Execute + integrate** — writers get isolated worktrees; every member
-   is timeboxed; every deliverable passes the **integration gate**:
-   contract compliance, evidence spot-check (one fabricated citation =
-   full re-verification), run-it-if-runnable, scope audit, sibling
-   conflict check. One retry, then escalate — never silently absorbed.
+   is timeboxed; on build missions the first merge is a **walking
+   skeleton** slice, never a big-bang merge at the end; **ONE-WAY
+   actions** (pushes, deletions, external side effects) are never
+   delegated — the lead executes them post-gate, user-confirmed. Every
+   deliverable passes the **integration gate**: contract compliance
+   (including question coverage), evidence spot-check (one fabricated
+   citation = full re-verification), run-it-if-runnable, scope audit,
+   sibling conflict check. One retry, then escalate — never silently
+   absorbed.
 7. **Report with attribution** — member / scope / delivered / gate result
    (PASS, FIX-AND-RETRY, REJECT, TIMEOUT). A hard mission where everything
    passed first try is a smell, not a flex.

@@ -9,7 +9,11 @@ team of fallible members produce reliable work.
 1. **Contract compliance** — does the deliverable match its brief's
    output contract (format, sections, location, scope)? Off-contract work
    is returned with the specific gap named, even when the content looks
-   good — un-mergeable good work is still un-mergeable.
+   good — un-mergeable good work is still un-mergeable. For briefs that
+   carry Mission Questions, compliance includes **question coverage**:
+   walk the numbers — every assigned question answered with evidence or
+   tagged UNVERIFIED. A silently skipped question is a named gap,
+   FIX-AND-RETRY.
 2. **Evidence spot-check** — sample the citations: open 2–3 of the
    `file:line` references and confirm they say what the member claims;
    fetch one docs claim. One fabricated citation = full re-verification
@@ -20,7 +24,10 @@ team of fallible members produce reliable work.
 4. **Scope audit (writers)** — diff the member's worktree: only IN-scope
    paths changed. Out-of-scope edits are reverted (and noted), even
    helpful ones — an untracked "improvement" is how missions grow
-   surprises.
+   surprises. A **ONE-WAY action** in a member's trail (a push, a
+   deletion outside the worktree, an external side effect) skips the
+   normal outcomes and escalates straight to the user — it can't be
+   reverted at the gate, only reported.
 5. **Sibling conflict check** — against already-merged deliverables:
    contradicting claims (two scouts asserting opposite facts → resolve
    with code, like jury-my-repo: no majority vote, code decides),
