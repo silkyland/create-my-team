@@ -30,7 +30,7 @@ team of fallible members produce reliable work.
    reverted at the gate, only reported.
 5. **Sibling conflict check** — against already-merged deliverables:
    contradicting claims (two scouts asserting opposite facts → resolve
-   with code, like jury-my-repo: no majority vote, code decides),
+   with code evidence: no majority vote, code decides),
    overlapping edits, duplicated work. Resolve BEFORE merge; conflicts
    merged now are bugs found later.
 

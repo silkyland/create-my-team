@@ -184,4 +184,4 @@ orchestrates; deep-plan specifies.
 | **Member returns off-contract work** | FIX-AND-RETRY once with named gap; second failure = REJECT, scope reassigned or reported |
 | **Integration gate finds fabricated citation** | Full re-verification of that member's entire deliverable; if pattern continues, reject and reassign |
 | **User cannot respond at plan gate (headless)** | Proceed only with read-only/reversible work; all ONE-WAY steps stay unexecuted and reported as pending |
-| **Sibling members produce conflicting claims** | Resolve with code evidence (like jury-my-repo) before merge — no majority vote, code decides |
+| **Sibling members produce conflicting claims** | Resolve with code evidence before merge — no majority vote, code decides |

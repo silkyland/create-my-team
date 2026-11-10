@@ -27,7 +27,8 @@ Check the LIVE session, not memory:
 4. **CLI fallback:** with no in-platform spawning but other agent CLIs
    installed (claude/codex/opencode… in headless mode), background shell
    invocations can stand in as team members — costs the user's other
-   subscriptions: consent first (see jury-my-repo for the pattern).
+   subscriptions: get the user's approval for the named CLIs and their
+   account costs before launching them.
 
 ## Degraded mode (no spawning at all)
 
